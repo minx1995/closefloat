@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Document</title>
 <link rel="stylesheet" href="./style.css">
+  <script src="./jquery-3.3.1.min.js"></script>
 </head>
 <body>
 
@@ -13,16 +14,28 @@
       <input type="checkbox">浮层
     </div>
   </div>
+
   		<script>
-		clickMe.addEventListener('click', function(e){
-		  popover.style.display = 'block'
-		})
-		wrapper.addEventListener('click', function(e){
-		  e.stopPropagation()
-		})
-		document.addEventListener('click', function(){
-		  popover.style.display = 'none'
-		})
+let active = false  
+$('#clickMe').on('click',function(e){
+  active = !active
+  console.log(active )
+$(popover).show()
+  
+  if(active === true){ 
+    setTimeout(function(){
+      $(document).one('click',function(){
+      $(popover).hide()
+        active = false
+        console.log('变成false')
+      })
+    },0)
+  }
+})
+
+$('#popover').on('click',function(e){
+  e.stopPropagation()
+})
 		</script>
 </body>
 </html>
